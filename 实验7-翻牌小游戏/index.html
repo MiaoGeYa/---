@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en"> 
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+<title>扑克牌记忆力游戏</title>
+
+
+<link href="styles/matchgame.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<div style="text-align:center">
+	<p>作者:2018031701040 蔡妙格</p>
+	</div>	
+
+	<script type = "text/javascript" src = "scripts/game.js"></script>
+	<script type = "text/javascript" src = "scripts/jquery-1.11.1.min.js"></script>
+	
+	<section id = "game">
+		<div id = "cards">
+		<div class = "card">
+		<div class = "face front"></div>
+		<div class = "face back"></div>
+		</div>
+		</div>
+	</section>
+	
+	<script type = "text/javascript">
+	$(function(){
+		 //实现随机洗牌
+		 pokes.matchingGame.deck.sort(shuffle);
+		 var $card = $(".card");
+		 for(var i=0; i<23; i++)
+		 {
+			$card.clone().appendTo($("#cards"));
+		 }
+		 
+		 //对每张牌进行设置
+		 $(".card").each
+		 (function(index)
+		 {
+			//调整坐标
+			$(this).css
+			({
+				"left" : (pokes.matchingGame.cardWidth+20)*(index%6)+"px",
+				"top" : (pokes.matchingGame.cardHight+20)*Math.floor(index/6)+"px"
+			});
+			
+			//吐出一个牌号
+			var pattern = pokes.matchingGame.deck.pop();
+			
+			//暂存牌号
+			$(this).data("pattern",pattern);
+			
+			//把翻牌后对应面显示出来
+			$(this).find(".back").addClass(pattern);
+			
+			//点击牌的响应
+			$(this).click(selectCard);
+		 });
+	  });
+	  </script>
+
+<div style="text-align:center;">
+<p>score: 0</p>
+</div>
+
+</body>
+</html>
