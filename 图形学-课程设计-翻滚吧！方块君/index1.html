@@ -1,0 +1,280 @@
+<!DOCTYPE html>	<!--表示文档类型为HTML文档-->
+<html>
+	<head><!--文档头部-->
+		<!--使用UTF-8字符编码，无此句在某些浏览器会出现乱码-->
+		<meta charset = "utf-8">
+		
+		<!--文档标题，会显示在网页标题栏-->
+		<title>翻滚吧！方块君</title>
+		<style type="text/css">
+			body {
+				left: 5px;
+				overflow: hidden;
+			}
+			#mark {    /*游戏开始前*/
+				position: absolute;
+				top: 50px;
+                right: -10px;
+				left: 420px;
+				width: 500px;
+				height: 500px;
+				border:#aaa 1px dashed;
+				box-shadow:0 0 8px rgba(81, 81,81,0.8);
+				text-align: center;
+				line-height: 50px;
+				border-radius: 10px;
+				background-color: rgba(236, 219, 195, 0.4);
+				font-family: "微软雅黑";
+				color: rgba(121, 91, 10, 0.705);
+				font-size: 20px;
+			}
+			#shuoming {    /*游戏说明*/
+				position: absolute;
+				top: 80px;
+                right: -10px;
+				left: 55px;
+				width: 380px;
+				height: 380px;
+				border:#aaa 1px dashed;
+				box-shadow:0 0 8px rgba(81, 81,81,0.8);
+				text-align: center;
+				line-height: 50px;
+				border-radius: 10px;
+				background-color: rgba(236, 219, 195, 1.0);
+				font-family: "微软雅黑";
+				color: rgba(121, 91, 10, 0.705);
+				font-size: 20px;
+			}
+			#mark1 {    /*右上背景*/
+				position: absolute;
+				top: 10px;
+                right: -10px;
+				left: 10px;
+				width: 160px;
+				height: 200px;
+				border:#aaa 1px dashed;
+				box-shadow:0 0 8px rgba(81, 81,81,0.8);
+				text-align: center;
+				line-height: 50px;
+				border-radius: 10px;
+				background-color: rgba(236, 219, 195, 0.4);
+				font-family: "微软雅黑";
+				color: rgba(121, 91, 10, 0.705);
+				font-size: 20px;
+			}
+			#mark2 {     /*显示生命值和分数*/
+				position: absolute;
+				top: 80px;
+                right: -10px;
+				left: 23px;
+				width: 130px;
+				height: 100px;
+				line-height: 20px;   /*间距*/
+				border:#aaa 1px dashed;
+				box-shadow:0 0 8px rgba(81, 81,81,0.8);
+				text-align: center;
+				line-height: 50px;
+				border-radius: 10px;
+				background-color: rgba(236, 219, 195, 0.4);
+				font-family: "微软雅黑";
+				color: rgba(121, 91, 10, 0.705);
+				font-size: 20px;
+			}
+			#mark3 {    /*显示倒计时*/
+				position: absolute;
+				top: 20px;
+                right: -10px;
+				left: 640px;
+				width: 90px;
+				height: 90px;
+				text-align: center;
+				line-height: 50px;
+				border-radius: 10px;
+				font-family: "微软雅黑";
+				color: rgba(121, 91, 10, 0.705);
+				font-size: 60px;
+			}
+			#p {     /*游戏结果显示*/
+				width: 450px;
+				height: 300px;
+				position: absolute;
+				text-align: center;
+				line-height: 100px;   /*间距*/
+				top: 80px;
+				left: 470px;
+			    display: none;
+				border-radius: 10%;
+				background-color: rgba(191, 196, 120, 0.658);
+				font-size: 35px;
+				color:blanchedalmond;
+				border:#aaa 1px ;
+				box-shadow:0 0 12px rgba(194, 206, 142, 0.8);  
+			}
+		
+		</style>
+	</head>
+	
+	<body><!--文档主体-->
+		<!--绘图区域的id，以及宽度和高度，用WebGL绘制的图形将显示在该canvas中-->
+		<div id="mark">
+		<h1>翻滚吧！方块君</h1>
+		<p id ="shuoming">游戏说明<br>
+		按键 A D 控制左右移动<br>
+		吃掉甜甜圈分数+1<br>
+		吃掉小方块分数+2 扩大自身0.05倍<br>
+		吃掉10个小方块游戏胜利<br>
+		碰到障碍物或出界游戏结束<br>
+		</div>  <!--游戏界面-->
+		<div id="mark1"></div>  <!--分数-->
+		<div id="mark2"></div>  <!--生命-->
+		<div id="mark3"></div>  <!--倒计时-->
+		<canvas id="webgl" width="800" height="600">
+		对不起，你的浏览器不支持HTML5的canvas元素！<!--出错时显示这句话-->
+		</canvas>
+		<!--GameOver前景-->
+		<p id="p" style="background-color:rgba(0,0,0,0.4)">
+		<a  id="score" style="color: blanchedalmond;"></a><br>
+		<a href="" style="background-color: rgba(236, 219, 195, 0.4);border-radius: 10px;color: blanchedalmond;"> Again</a>
+		</p>
+		
+		<p style="color:rgba(194, 182, 76, 1);">AD控制移动 大方块吞掉小方块+2分并且大方块扩大0.1倍 吃掉甜甜圈+1分 当大方块达到一定大小游戏结束或者碰到墙就gameover</p>
+	
+		<!--以下为用到的shader程序和JavaScript程序，程序类型由type属性决定，
+		顶点Shader程序和片元Shader程序有id，因为在JavaScript程序中需要对其
+		进行访问，而JavaScript程序无id-->
+		
+		<!--顶点Shader程序-->
+		<script id="vertex-shader" type="x-shader/x-vertex">
+		const int LightNum=3;
+		attribute vec3 a_Position;	// 输入三维顶点坐标(建模坐标系)
+		attribute vec3 a_Normal;	// 顶点法向(建模坐标系)
+		attribute vec2 a_Texcoord;	// 顶点纹理坐标
+
+		varying vec3 v_fN;	// 法向(观察坐标系)
+		varying vec3 v_fE;	// 观察向量(观察坐标系)
+		varying vec3 v_fL[LightNum];	// 光照向量(观察坐标系)
+		varying float v_Dist;
+		varying vec2 v_Texcoord;	// 输出纹理坐标
+
+		uniform mat4 u_ModelView;			// 观察矩阵
+		uniform mat4 u_Projection;		// 投影矩阵
+		uniform mat3 u_NormalMat;		// 法向变换矩阵
+		uniform vec4 u_LightPosition[LightNum];	// 光源位置/方向(世界坐标系)
+		uniform bool u_LightOn[LightNum];
+		uniform bool u_bOnlyTexture;
+	
+		void main(){
+			v_Texcoord = a_Texcoord;
+			
+			// 将顶点坐标转到观察坐标系下(在观察坐标系计算光照)
+			vec3 pos = (u_ModelView *vec4(a_Position, 1.0)).xyz;
+		if(!u_bOnlyTexture)
+			{	v_fE = normalize(-pos);		// 观察者方向向量
+			// 计算观察坐标系下法向
+			v_fN = normalize(u_NormalMat * a_Normal);
+
+			for(int i=0;i<LightNum;i++){
+				if(!u_LightOn[i]) continue;
+				if(u_LightPosition[i].w!=0.0)
+					v_fL[i]=normalize(u_LightPosition[i].xyz-pos);
+				else
+					v_fL[i]=normalize(u_LightPosition[i].xyz);
+			}
+	
+			v_Dist=distance(pos,u_LightPosition[2].xyz);}
+			// 裁剪坐标系下顶点坐标
+			gl_Position = u_Projection * vec4(pos, 1.0); 
+		}
+		</script>
+		<!--片元Shader程序-->
+		<script id="fragment-shader" type="x-shader/x-fragment">
+		const int LightNum=3;
+		precision mediump float;	// 浮点数精度为中等
+		varying vec3 v_fN;	// 法向(观察坐标系)
+		varying vec3 v_fE;	// 观察向量(观察坐标系)
+		varying vec3 v_fL[LightNum];	// 光照向量(观察坐标系)
+		varying vec2 v_Texcoord;	// 输入片元纹理坐标
+		varying float v_Dist;
+
+		uniform float u_Shininess;	// 高光系数
+		uniform vec3 u_AmbientProduct[LightNum];
+		uniform vec3 u_DiffuseProduct[LightNum];
+		uniform vec3 u_SpecularProduct[LightNum];
+		uniform vec3 u_Emission;
+		// 光源亮度与材质反射系数的乘积
+		uniform sampler2D u_Sampler;// 2D纹理采样器
+		
+		//最后一个光源的聚光灯参数
+		uniform vec3 u_SpotDirection;
+		uniform float u_SpotCutOff;
+		uniform float u_SpotExponent;
+	
+		uniform float u_Alpha; //透明度
+		uniform bool u_bOnlyTexture;
+
+		void main(){
+			if(u_bOnlyTexture){
+				gl_FragColor=texture2D(u_Sampler,v_Texcoord);
+				return;
+			}
+			// 归一化输入的向量
+			vec3 N = normalize(v_fN);
+			vec3 E = normalize(v_fE);
+			vec3 fragColor=vec3(0.0,0.0,0.0);
+			vec3 specular=vec3(0.0,0.0,0.0);
+			for(int i=0;i<LightNum;i++){
+			vec3 L = normalize(v_fL[i]);
+
+			vec3 H = normalize( L + E );	// 半角向量
+			float KSpot=1.0;
+			if(i==2){
+				vec3 spotDir=-normalize(u_SpotDirection);
+				float cutoff=radians(u_SpotCutOff);
+				float c=dot(L,spotDir);
+				if(c<cos(cutoff))
+				KSpot=0.0;
+				else{
+					float d=1.0+0.5*v_Dist;
+					KSpot=max(pow(c,u_SpotExponent),0.0)/d;
+				}
+				
+			}
+			vec3 ambient = u_AmbientProduct[i];	// 环境反射分量
+
+			// 漫反射分量
+			float Kd = max(dot(L, N), 0.0);
+			vec3 diffuse = Kd * u_DiffuseProduct[i]*KSpot;
+			
+			// 镜面反射分量
+			vec3 specular;
+			if(Kd!=0.0){
+				float Ks=pow(max(dot(N,H),0.0),u_Shininess);
+				specular+=KSpot*Ks*u_SpecularProduct[i];
+			}
+			
+			fragColor += ambient + diffuse ;
+			}
+			fragColor+=u_Emission;
+			gl_FragColor=vec4(fragColor,1.0)*
+			texture2D(u_Sampler,v_Texcoord)+vec4(specular,1.0);
+
+			gl_FragColor.a=u_Alpha;
+		}
+		</script>
+		
+		
+		
+		<!--下面是辅助我们进行程序编写的3个JavaScript程序-->
+		<script type="text/javascript" src="./Common/webgl-utils.js"></script>
+		<script type="text/javascript" src="./Common/initShaders.js"></script>
+		<script type="text/javascript" src="./Common/MV.js"></script>
+		<!--主程序-->
+		<script type="text/javascript" src="index1.js"></script>
+		<audio src="audio/background.mp3" preload="autoplay" loop="loop" id = "bgmusic"/>
+		<audio src ="audio/Chemistry.mp3" preload = "auto" id = "Collisionmusic"></audio>
+		<audio src ="audio/Fail.mp3" preload = "auto" id = "Gameovermusic"></audio>
+		<audio src ="audio/Win.mp3" preload = "auto" id = "Gamewinmusic"></audio>
+		<audio src ="audio/Smallbox.mp3" preload = "auto" id = "Smallboxmusic"></audio>
+		
+	</body>
+</html>
