@@ -1,0 +1,32 @@
+<html>
+<head>
+<script type = "text/javascript">
+function mouseOver()
+{
+	dcoument.mouse.src = "mouse_over.jpg"
+}
+
+function mouseOUt()
+{
+	document.mouse.src = "mouse_out.jpg"
+}
+
+function mousePressd(event)
+{
+	if(event.button == 2)
+	{
+		alert("您按下了鼠标右键！")
+	}
+	
+	else
+	{
+		alert("您按下了鼠标左键！")
+	}
+}
+</script>
+</head>
+<body onmousedown = "mousePressd(event)">
+<img border = "0" src = "mouse_over.jpg" name ="mouse" onmouseover = "mouseOver()" onMouseOut = "mouseOUt()" />
+
+</body>
+</html>
