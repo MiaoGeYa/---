@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>三维消除箱子游戏</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+    color: #333;
+    font-family: helvetica;
+}
+canvas {
+    position: absolute;
+}
+.hud {
+    position: absolute;
+    margin-left: 1em;
+}
+.hit {
+    font-weight: bold;
+    color: red;
+}
+</style>
+</head>
+
+<body>
+	<div class = "hud">
+	<h1 id = "level"></h1>
+	<p>学号：2018031701040 姓名：蔡妙格</p>
+	<p>点击箱子将其消除！</p>
+	<p id = "score"></p>
+	<button id = "nextbutton">下一关</button>
+	选择关卡：
+	<select id = "Levelchoice" size = "4">
+		<option value = "0">简单</option>
+		<option value = "1">中等</option>
+		<option value = "2">困难</option>
+		<option value = "3">疯狂</option>
+	</select>
+	</div>
+	
+	<div id = "webgl-container"></div>
+	<script src = "three.min.js"></script>
+	<script src = "game.js"></script>
+</body>
+</html>
