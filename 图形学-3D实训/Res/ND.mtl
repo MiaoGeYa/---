@@ -1,0 +1,162 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# 创建的文件:21.06.2021 18:01:34
+
+newmtl _111Model001_Material001
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Cloth_d.png
+	map_Kd maps\Cloth_d.png
+	map_bump maps\Cloth_n.png
+	bump maps\Cloth_n.png
+
+newmtl _111Model001_Material002
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\hair_d.png
+	map_Kd maps\hair_d.png
+	map_bump maps\Hair_n.png
+	bump maps\Hair_n.png
+
+newmtl _111Model001_Material003
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\hair_d.png
+	map_Kd maps\hair_d.png
+	map_bump maps\Hair_n.png
+	bump maps\Hair_n.png
+
+newmtl _111Model001_Material004
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Theeth_d.png
+	map_Kd maps\Theeth_d.png
+	map_bump maps\Theeth_n.png
+	bump maps\Theeth_n.png
+
+newmtl _111Model001_Material005
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Head_d.png
+	map_Kd maps\Head_d.png
+	map_bump maps\n.png
+	bump maps\n.png
+
+newmtl _111Model001_Material006
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Dress_d.png
+	map_Kd maps\Dress_d.png
+	map_bump maps\Dress_n.png
+	bump maps\Dress_n.png
+
+newmtl _111Model001_Material007
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Head_d.png
+	map_Kd maps\Head_d.png
+	map_bump maps\n.png
+	bump maps\n.png
+
+newmtl _111Model001_Material008
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Skin_d.png
+	map_Kd maps\Skin_d.png
+	map_bump maps\Skin_n.png
+	bump maps\Skin_n.png
+
+newmtl _111Model001_Material009
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\Skin_d.png
+	map_Kd maps\Skin_d.png
+	map_bump maps\Skin_n.png
+	bump maps\Skin_n.png
+
+newmtl _111Model001_Material010
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5500 0.5500 0.5500
+	Kd 0.5500 0.5500 0.5500
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka maps\SkirtCape_d.png
+	map_Kd maps\SkirtCape_d.png
+	map_bump maps\SkirtCape_n.png
+	bump maps\SkirtCape_n.png
