@@ -1,0 +1,56 @@
+<html>
+<head>
+<script language = "javascript">
+	function calc(n)
+	{
+		document.getElementById("Ans").value += n;
+	}
+	function op()
+	{
+		document.getElementById("Ans").value =
+		eval(document.getElementById("Ans").value);
+	}
+	function clears()
+	{
+		document.getElementById("Ans").value = ' ';
+	}
+</script>
+</head>
+
+<body>
+<form name = "Calc">   <!--表格-->
+<Table BORDER = 4>
+<tr>
+	<td>
+	<input type = "text" id = "Ans" name = "Input" Size = "16"><br>
+	</td>
+</tr>
+
+<tr>
+	<td>
+	<input type = "button" name = "one" value = "1" OnClick = "calc('1')">
+	<input type = "button" name = "two" value = "2" OnClick = "calc('2')">
+	<input type = "button" name = "three" value = "3" OnClick = "calc('3')">
+	<input type = "button" name = "plus" value = "+" OnClick = "calc('+')">
+	<br>
+	<input type = "button" name = "four" value = "4" OnClick = "calc('4')">
+	<input type = "button" name = "five" value = "5" OnClick = "calc('5')">
+	<input type = "button" name = "six" value = "6" OnClick = "calc('6')">
+	<input type = "button" name = "minus" value = "-" OnClick = "calc('-')">
+	<br>
+	<input type = "button" name = "seven" value = "7" OnClick = "calc('7')">
+	<input type = "button" name = "eight" value = "8" OnClick = "calc('8')">
+	<input type = "button" name = "nine" value = "9" OnClick = "calc('9')">
+	<input type = "button" name = "times" value = "*" OnClick = "calc('*')">
+	<br>
+	<input type = "button" name = "clear" value = "c" OnClick = "clears()">
+	<input type = "button" name = "zero" value = "0" OnClick = "calc('0')">
+	<input type = "button" name = "Doit" value = "=" OnClick = "op()">
+	<input type = "button" name = "chufa" value = "/" OnClick = "calc('/')">
+	<br>
+	</td>
+</tr>
+</Table>
+</form>
+</body>
+</html>

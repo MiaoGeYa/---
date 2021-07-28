@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>game</title>
+<script type = "text/javascript">
+	var sec = 0;
+	function timeAdd()
+	{
+		sec += 1;
+		document.visit.timetext.value = sec + "秒";
+		setTimeout("timeAdd()",1000);
+	}
+</script>
+<meta http-equiv = "Content-Type" content = "text/html; charset = utf-8">
+</head>
+
+<body onLoad = "timeAdd()">
+<form name = visit>
+<input size = 12 name = timetext>
+</form>
+</body>
+</html>

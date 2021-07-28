@@ -1,0 +1,41 @@
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv = "Content-Type" content = "text/html; charset = utf-8"/>
+<title>无标题文档</title>
+</head>
+<body>
+<script>
+	function test()
+	{
+		if(document.a.b.value.lenght > 50)
+		{
+			alert("不能超过50个字符！");
+			document.a.b.focus();
+			return false;
+		}
+	}
+	function onlyEng()
+	{
+		if(!(event.keyCode >= 65 && event.keyCode <=90 ))
+		{
+			event.returnvalue = false;
+			alert("只能输入英文！");
+		}
+	}
+	function onlyNum()
+	{
+		if(!((event.keyCode >= 48 && event.keyCode <=57) || (event.keyCode >= 96 && event.keyCode <= 105)))
+		{
+			event.returnvalue = false;
+			alert("只能输入数字");
+		}
+	}
+</script>
+<form name = a onsubmit = "return test()">
+<textarea name = "b" cols = "40" wrap = "VIRTUAL" rows = "6"></textarea>
+<input onkeydown = "onlyNum();">
+<input onkeydown = "onlyEng();">
+<input type = "submit" name = "Submit" value = "check">
+</form>
+</body>
+</html>

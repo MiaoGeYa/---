@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv = "Content-Type" content = "text/html; charset = utf-8" />
+<title>无标题文档</title>
+<script src ="jquery.min.js"></script>
+<script>
+	$(document).ready
+	(
+		function()
+		{
+			$("button").click
+			(
+				function()
+				{
+					$("div").animate
+					({
+						left:'500px',
+						opacity:'0.5',
+						height:'150px',
+						width:'150px'
+					});
+				}
+			);
+		}
+	);
+</script>
+</head>
+
+<body>
+<button>开始动画</button>
+<p>默认情况下，所有HTML元素的位置都是静态的，并且无法移动，如需对位置进行操作
+，记得先把元素的CSS position属性设置为relative,fixed 或 absolute </p>
+<div style = "background:#98bf21;height:100px;width:100px;position:absolute">
+</div>
+</body>
+</html>
