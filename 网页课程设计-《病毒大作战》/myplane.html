@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    <meta charset="utf-8" />
+	<title>网页课设</title>
+	<style type="text/css">
+	#mask
+		{
+			position: absolute;
+			top: 300px;
+			right: 0px;
+			left: 680px;
+			width: 100px;
+			height: 50px;
+			border:#aaa 1px dashed;
+			box-shadow:0 0 8px rgba(81, 81,81,0.8);
+			text-align: center;
+			line-height: 40px;
+			border-radius: 10px;
+			background-color: rgba(236, 219, 195, 0.4);
+			font-family: "微软雅黑";
+			font-size: 20px;
+		}
+	</style>
+	<script type="text/javascript" src="js/elements.js"></script>
+    <script type="text/javascript" src="js/myplane.js" ></script>
+	</head>
+
+    <body style="position: absolute;top: 20px;left: 350px;"> <!--居中-->
+		<canvas id="canvas" width="643" height="600" ></canvas> 
+		<!--游戏背景-->
+		<img src="images/background1.PNG" style="position: absolute;top: 0px;left: 0px;" id="bg0"/>
+		<!--游戏开始的背景-->
+		<img src="images/background.PNG" style="position: absolute;top: 0px;left: 0px; visibility:hidden;" id = "bg1"/> 
+		<!--游戏结束的背景-->
+		<img src="images/gameover.PNG" style="position: absolute;top: 0px;left: 0px; visibility:hidden;" id = "gameover"/> 
+		<!--暂停按钮-->
+		<img src="images/stop.PNG" width="150" height="80" style="position: absolute;top: 5px;left: 480px; display:none;" type="button" id="stop"/>
+		<!--帮助按钮-->
+		<img src="images/help.PNG" width="195" height="95" style="position: absolute;top:300px;left: 230px;" type="button" id="help" onclick="helphide()"/>        
+		<!--简单模式按钮-->
+		<img src="images/level1.PNG" width="200" height="100" style="position: absolute;top:390px;left: 230px;" type="button" id="level1" onclick="init();startHide();choice=1;" />        
+		<!--困难模式按钮-->
+		<img src="images/level2.PNG" width="200" height="100" style="position: absolute;top:480px;left: 230px;" type="button" id="level2" onclick="init2();startHide();choice=2;" />        
+		<!--继续游戏按钮-->
+		<img src="images/Go.PNG" width="200" height="80" style="position: absolute;top:480px;left: 230px; display:none;" type="button" id="continuou" />        
+		<!--再来一次按钮-->
+		<img src="images/again.PNG" width="200" height="100" style="position: absolute;top:480px;left: 230px; display:none;" type="button" id="agains"/>        
+		<!--返回按钮-->
+		<img src="images/Back.PNG" width="150" height="80" style="position: absolute;top:2px;left: 2px; display:none;" type="button" id="back"/>        
+		<img src="images/Back.PNG" width="150" height="80" style="position: absolute;top:2px;left: 2px; display:none;" type="button" id="back2"/>        
+		
+		<div id = "mask">
+		<a href="./readscore.php" style = "color: rgba(121, 91, 10, 0.705); ">排行榜</a>
+		</div>
+		
+		<!--分数-->
+		<div id="scorediv" style="position: absolute;top: 550px;left: 440px;font-weight: bold;font-size: 30px; visibility:hidden;">
+		Score：<span id="score">0</span></div>
+		
+		<!--生命值-->
+		<div id="liveText" style="position: absolute;top: 550px;left: 20px;font-weight: bold;font-size: 30px; visibility:hidden;">
+		Live：</div>
+		
+		<!--游戏说明界面-->
+		<div style="position: absolute;top: 100px;left: 90px; visibility:hidden;">
+		<span id="rulesText" style="font-size: 25px;">游 戏 说 明：<br>
+		<br>每击中一个病毒加5分<br>
+		<br>每击落一个小BOSS加10分 大BOSS加20分<br>
+		<br>通过"上""下""左""右"键盘控制移动<br>
+		<br>玩家碰到病毒或病毒落地生命值-1<br>
+		<br>玩家碰到小Boss生命值-2 大Boss-3<br></span>
+		</div>
+		
+		</div>
+    
+    <script>
+    var level1 = document.getElementById('level1'); 
+	var level2 = document.getElementById('level2'); 
+	var helps = document.getElementById('help'); 
+	var stops = document.getElementById('stop');
+	var backs = document.getElementById('back');
+	var backs2 = document.getElementById('back2');
+	var agains = document.getElementById('agains');
+	var continuous = document.getElementById('continuou');
+	
+	var scorediv = document.getElementById('scorediv'); 
+	var scores = document.getElementById('score'); 
+	var lives = document.getElementById('liveText'); 
+	var rulse = document.getElementById('rulesText');
+	
+	var bg1 = document.getElementById('bg1');
+	var bg0 = document.getElementById('bg0');
+	
+	var gameover = document.getElementById('gameover');
+	
+	function cleargame()  //清空游戏缓存
+	{
+		sBossenemylive = 0;
+		clearInterval(gameTimmer);                
+		clearInterval(btimmer);                
+		clearInterval(etimmer); 
+		clearInterval(sBosstimmer); 
+		clearInterval(bBosstimmer); 
+		clearInterval(ptimer); 
+		
+		cxt.clearRect(boxx,boxy,boxwidth,boxheight);
+		allenemys.length=0;            
+		allbullets.length=0; 
+		allpowers.length=0;
+		allsBossenemys.length=0;
+		allbBossenemys.length=0;
+		gameTimmer = 0;
+		sp = 0;
+	}
+	
+    function startHide() //按下开始按钮响应事件
+	{   
+		level1.style.display="none"; 
+		level2.style.display="none"; 
+		helps.style.display="none"; 
+		stops.style.display=""; 
+		stops.onclick = function(){stop();};
+		backs2.style.display="none"; 
+		backs.style.display=""; 
+		backs.onclick = function(){backshow();};
+		scorediv.style.visibility="visible";
+		lives.style.visibility="visible";
+		
+		rulse.style.visibility="hidden"; 
+		gameover.style.visibility="hidden";
+		
+		bg1.style.visibility="visible"; 
+		bg0.style.visibility="hidden";
+		scores.style.visibility="visible";
+    } 
+	
+    function stop()    //按下暂停按钮响应事件
+	{        
+		cleargame();
+		var plive = playlive;
+		helps.style.display="";
+		continuous.style.display="";
+		backs2.style.display="none"; 
+		continuous.onclick = function()
+		{
+			if(choice == 1)
+				stopinit1();
+				
+			else
+				stopinit2();
+			
+			startHide(); 
+			continuous.style.display="none";
+		};
+		lives.style.visibility="visible";
+		
+    }
+
+	function backshow()  //按下返回键响应
+	{
+		cleargame();
+		score = 0;
+		bg0.style.visibility="visible";
+		bg1.style.visibility="hidden"; 
+		gameover.style.visibility="hidden";
+		rulse.style.visibility="hidden";
+		scorediv.style.visibility="hidden"; 
+		lives.style.visibility="hidden";
+		
+		stops.style.display="none"; 
+		helps.style.display=""; 
+		level1.style.display="";
+		level2.style.display="";
+		backs.style.display="none"; 
+		agains.style.display="none"; 
+		continuous.style.display="none"; 
+		scores.style.visibility="hidden";
+	}
+	
+	function backshow2()  //按下返回键响应
+	{
+		backs2.style.display="none"; 
+		bg0.style.visibility="visible";
+		bg1.style.visibility="hidden"; 
+		rulse.style.visibility="hidden";
+		scorediv.style.visibility="hidden"; 
+		lives.style.visibility="hidden";
+		stops.style.display="none"; 
+		helps.style.display=""; 
+		level1.style.display="";
+		level2.style.display="";
+		backs.style.display="none"; 
+		continuous.style.display="none"; 
+	}
+	
+	function helphide()    //按下说明按钮响应事件
+	{
+		level1.style.display="none";
+		level2.style.display="none";
+		helps.style.display="none"; 
+		backs2.style.display=""; 
+		backs2.onclick = function(){backshow2();};
+		rulse.style.visibility="visible";
+		scorediv.style.visibility="visible"; 
+		lives.style.visibility="visible";
+		bg0.style.visibility="hidden";
+		bg1.style.visibility="visible"; 
+		scores.style.visibility="hidden";
+	}
+	
+	function gameovershow()   //游戏结束显示界面
+	{
+		cleargame();     
+		gameover.style.visibility="visible";
+		agains.style.display="";
+		stops.style.display="none"; 
+		showSite(score);   //保存分数
+		if(choice == 1)
+		{
+			agains.onclick = function()
+			{
+				score=0;
+				cleargame();
+				init();
+				startHide();
+				backs.style.display=""; 
+				agains.style.display="none";
+				stops.style.display=""; 
+			}
+		}
+		
+		if(choice == 2)
+		{
+			agains.onclick = function()
+			{
+				score=0;
+				cleargame();
+				init2();
+				startHide();
+				backs.style.display=""; 
+				agains.style.display="none";
+				stops.style.display=""; 
+			}
+		}
+	}
+    </script>
+    </body>
+    </html>
